@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Front End Project</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+</br>
+
+  <div>
+    <h1>Find Dogs for Adoption</h1>
+  </div>
+
+ <div class="container">
+  <form id="pet-form">
+    <div class="form-group">
+     
+      <input type="text" id="zip" class="form-control form-control-lg" placeholder="Enter your zipcode">
+      <input type="submit" value="Find" class="btn btn-outline-dark btn-lg mt-3">
+    </div>
+  </form>
+
+  <div id="results" class="row">
+    
+  </div>
+  <div>
+    <button id="getDogFact" class="btn btn-outline-primary btn-lg mt-3" onclick="dogFacts()">Get a Random Dog Fact!</button>
+  </div>
+
+  <br>
+
+  <div id="randomFact"></div>
+  
+
+ </div>
+
+<script>
+
+let urlencoded = new URLSearchParams();
+    urlencoded.append("grant_type", "client_credentials");
+    urlencoded.append("client_id", "a2JzDls1AvsZqC9U4H1UL8g5xwZxaLAGXVMUQLIGxUAbApWBFL");
+    urlencoded.append("client_secret", "eC6WcexILEcgtDFr4LdjxXNC5g1xXteU5Jh6xHj1");
+
+    let bearerToken = ""
+
+    let requestOptionsBearer = {
+      //sends post request
+      method: 'POST',
+      //data included in body- takes parameters from above
+      body: urlencoded
+    };
+
+    // fetch request for authorization token
+    fetch("https://api.petfinder.com/v2/oauth2/token", requestOptionsBearer)
+      .then(response => response.json())
+      .then(result => {
+        // result has property access_token- authorizes any subsequent requests
+        bearerToken = result.access_token;
+        
+        
+      })
+      .catch(error => console.log('error', error));  
+
+const petForm = document.getElementById("pet-form");
+petForm.addEventListener('submit', fetchDogs);
+
+function fetchDogs(event) {
+  event.preventDefault();
+
+  const zip = document.getElementById("zip").value;
+   
+  fetch(`https://api.petfinder.com/v2/animals?type=dog&page=2&location=${zip}&distance=50`, {
+
+// adds modifiers to fetch request, putting access token in header
+   headers: {
+   Authorization: `Bearer ${bearerToken}`
+  }
+  })
+
+.then(res => res.json())
+.then ((data) => {
+  console.log(data) 
+
+  listDogs(data.animals)
+})
+.catch(err => console.log(err));
+
+
+}
+
+function listDogs(animals)  {
+  const results = document.getElementById("results");
+ 
+ // clear first
+ results.innerHTML='';
+  //loop through pets
+  for (let i = 0; i < animals.length; i++) {
+    console.log(animals[i])
+    const div = document.createElement('div');
+    div.classList.add('card', 'card-body', 'mb-3');
+    results.innerHTML+= `
+      
+       <div class="col-sm-6">
+         <h4>${animals[i].name} (${animals[i].age})</h4>
+         <span class="text-secondary">${animals[i].gender}, ${animals[i].breeds.primary}</span>
+         <a href="${animals[i].url}" target="_blank">See More</a>
+         
+        <div class="col-sm-6">
+          <img class="img-fluid rounded-circle mt-2" src="${animals[i].primary_photo_cropped !==null ? animals[i].primary_photo_cropped.medium : "/Users/tarathoma/web-pt-08-2022/tmthoma/front-end-project/no-photo-camera-sign-vector-3213963.webp"}">
+
+        </div>
+
+   
+    
+    `;
+    
+}
+}
+  
+function dogFacts()   {
+
+  let randomFact = document.getElementById("randomFact")
+
+  fetch (`https://api.allorigins.win/raw?url=https://dog-api.kinduff.com/api/facts`)
+  .then ((response) => response.json())
+  .then ((data) => randomFact.innerHTML= data.facts);
+
+    
+}
+ 
+ 
+</script>
+</body>
+
+</html>
