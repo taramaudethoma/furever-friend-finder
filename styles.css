@@ -5,3 +5,19 @@ h1  {
   text-align: center;
   color: rgb(146, 31, 88);
 }
+/* Container holding the image and the text */
+#logo  {
+  position: relative;
+  text-align: center;
+}
+
+/* Centered text */
+.logoText {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  color:rgba(9, 0, 5, 0.791)
+  
+}
