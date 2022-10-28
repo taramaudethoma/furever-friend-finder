@@ -22,7 +22,7 @@ button  {
   top: 100%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 30px;
+  font-size: 35px;
   color:rgba(18, 1, 10, 0.791)
   
 }
@@ -30,3 +30,4 @@ button  {
   font-size: 20px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
