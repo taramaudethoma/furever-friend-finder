@@ -31,16 +31,18 @@
   <div id="results" class="row">
     
   </div>
-  <div>
-    <button id="getDogFact" class="btn btn-outline-primary btn-lg mt-3" onclick="dogFacts()">Get a Random Dog Fact!</button>
+
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center">
+      <button id="getDogFact" class="btn btn-outline-primary btn-lg mt-4" onclick="dogFacts()">Get a Random Dog Fact!</button>
+    </div>
   </div>
 
   <br>
 
-  <div id="randomFact"></div>
-  
+  <div class="col-12 text-center" id="randomFact"></div>
 
- </div>
+  </div>
 
 <script>
 
@@ -93,12 +95,10 @@ function fetchDogs(event) {
 })
 .catch(err => console.log(err));
 
-
 }
 
 function listDogs(animals)  {
   const results = document.getElementById("results");
- 
  // clear first
  results.innerHTML='';
   //loop through pets
@@ -131,11 +131,9 @@ function dogFacts()   {
 
   fetch (`https://api.allorigins.win/raw?url=https://dog-api.kinduff.com/api/facts`)
   .then ((response) => response.json())
-  .then ((data) => randomFact.innerHTML= data.facts);
-
+  .then ((data) => randomFact.innerHTML = data.facts);
     
-}
- 
+  }
  
 </script>
 </body>
