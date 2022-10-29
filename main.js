@@ -1,3 +1,15 @@
+  
+function dogFacts()   {
+
+  let randomFact = document.getElementById("randomFact")
+
+  fetch (`https://api.allorigins.win/raw?url=https://dog-api.kinduff.com/api/facts`)
+  .then ((response) => response.json())
+  .then ((data) => randomFact.innerHTML = data.facts);
+    
+  }
+
+
 let urlencoded = new URLSearchParams();
     urlencoded.append("grant_type", "client_credentials");
     urlencoded.append("client_id", "a2JzDls1AvsZqC9U4H1UL8g5xwZxaLAGXVMUQLIGxUAbApWBFL");
@@ -66,13 +78,4 @@ function listDogs(animals)  {
 
         </div>
     `;}}
-  
-function dogFacts()   {
 
-  let randomFact = document.getElementById("randomFact")
-
-  fetch (`https://api.allorigins.win/raw?url=https://dog-api.kinduff.com/api/facts`)
-  .then ((response) => response.json())
-  .then ((data) => randomFact.innerHTML = data.facts);
-    
-  }
