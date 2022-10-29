@@ -68,13 +68,13 @@ function listDogs(animals)  {
     div.classList.add('card', 'card-body', 'mb-3');
     results.innerHTML+= `
       
-       <div class="col-sm-6">
+       <div class="col-sm-4" mt-2>
          <h4>${animals[i].name} (${animals[i].age})</h4>
          <span class="text-secondary">${animals[i].gender}, ${animals[i].breeds.primary}</span>
          <a href="${animals[i].url}" target="_blank">See More</a>
          
-        <div class="col-sm-6">
-          <img class="img-fluid rounded-square mt-2" src="${animals[i].primary_photo_cropped !==null ? animals[i].primary_photo_cropped.medium : "no_photo.png"}">
+        <div class="col-sm-4">
+          <img class="img-fluid mt-2" src="${animals[i].primary_photo_cropped !==null ? animals[i].primary_photo_cropped.medium : "no_photo.png"}">
 
         </div>
     `;}}
