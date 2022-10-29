@@ -31,3 +31,9 @@ button  {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.img-fluid {
+  float: left;
+  width:  100px;
+  height: 100px;
+  object-fit: cover;
+}
